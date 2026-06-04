@@ -1,0 +1,45 @@
+package com.sonie.employee_management.controller;
+
+import com.sonie.employee_management.entity.Employee;
+import com.sonie.employee_management.service.EmployeeService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+public class EmployeeController {
+
+    private final EmployeeService employeeService;
+
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+
+    @GetMapping("/employees")
+    public List<Employee> getAllEmployees() {
+        return employeeService.getAllEmployees();
+    }
+
+    @PostMapping("/employees")
+    public Employee saveEmployee(@RequestBody Employee employee) {
+        return employeeService.saveEmployee(employee);
+    }
+
+    @PutMapping("/employees/{id}")
+      public Employee updateEmployee(
+        @PathVariable Long id,
+        @RequestBody Employee employee) {
+
+    return employeeService.updateEmployee(id, employee);
+}
+
+    @DeleteMapping("/employees/{id}")
+    public void deleteEmployee(@PathVariable Long id) {
+        employeeService.deleteEmployee(id);
+    }
+
+    @GetMapping("/employees/{id}")
+    public Employee getEmployeeById(@PathVariable Long id) {
+        return employeeService.getEmployeeById(id);
+    }
+}
